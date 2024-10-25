@@ -1,0 +1,6 @@
+.aider*
+.env
+certs/*
+!certs/.keep
+html/*
+!html/.keep
