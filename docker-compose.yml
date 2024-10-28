@@ -8,14 +8,9 @@ services:
     ports:
       - "443:443"
     volumes:
-      - certs:/certs:rw
+      - ./certs:/certs:rw
       - ./html:/usr/share/nginx/html:ro
     environment:
       - DOMAIN=${DOMAIN:-localhost}  # 環境変数から取得、未設定時はlocalhostを使用
-      - NGINX_ENVSUBST_TEMPLATE_DIR=/etc/nginx/conf.d
-      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.conf
-      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
-
-volumes:
-  certs:
-    name: https-nginx-certs
+      - SSL_CERTIFICATE=/certs/${DOMAIN:-localhost}/cert.pem
+      - SSL_CERTIFICATE_KEY=/certs/${DOMAIN:-localhost}/key.pem
